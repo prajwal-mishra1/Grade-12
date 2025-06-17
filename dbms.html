@@ -29,36 +29,58 @@
     }
 
     /* Header bar with return button */
-    header {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        background: #00796b;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        z-index: 100;
-    }
+    .sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 26px;
+    background: #00796b;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    z-index: 200;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
 
-    .btn-home {
-        background: #004d40;
-        color: #e0f2f1;
-        padding: 10px 18px;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 16px;
-        box-shadow: 0 3px 6px rgba(0,77,64,0.4);
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        user-select: none;
-    }
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 240px;
+    height: 100%;
+    background: #004d40;
+    color: white;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: left 0.3s ease-in-out;
+    z-index: 150;
+}
 
-    .btn-home:hover {
-        background: #00332f;
-        box-shadow: 0 5px 10px rgba(0,51,47,0.7);
-    }
+.sidebar a {
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.sidebar a:hover {
+    background: #00695c;
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+/* Push content when sidebar is open (optional) */
+body.sidebar-active .container {
+    margin-left: 250px;
+    transition: margin 0.3s;
+}
+
 
     h1 {
         color: #00796b;
@@ -128,20 +150,36 @@
 </head>
 <body>
 
-<header>
-    
-    <a href="index.html" class="btn-home" title="Return to Home">← Return to Home</a>
-</header>
+<!-- Sidebar toggle button (hamburger) -->
+<div class="sidebar-toggle" onclick="toggleSidebar()">☰</div>
+
+<!-- Slide-in sidebar -->
+<aside id="sidebar" class="sidebar">
+    <a style="font-family: 'Courier New', Courier, monospace; color: skyblue; font-size: 24px; text-align: center;" href="index.html" class="sidebar-link">← Return to Home</a>
+    <a href="#data-info" class="sidebar-link">Data & Information</a>
+    <a href="#features-info" class="sidebar-link">Features of Info</a>
+    <a href="#db-purpose" class="sidebar-link">Database & Purpose</a>
+    <a href="#terminologies" class="sidebar-link">DB Terminologies</a>
+    <a href="#dictionary" class="sidebar-link">Data Dictionary</a>
+    <a href="#dbms" class="sidebar-link">DBMS</a>
+    <a href="#models" class="sidebar-link">DB Models</a>
+    <a href="#constraints" class="sidebar-link">Constraints</a>
+    <a href="#normalization" class="sidebar-link">Normalization</a>
+    <a href="#centralized" class="sidebar-link">Centralized vs Distributed</a>
+    <a href="#security" class="sidebar-link">Security</a>
+    <a href="#practical" class="sidebar-link">DDL & DML</a>
+</aside>
+
 
 <div class="container">
 
     <h1>Database Management System (DBMS)</h1>
 
-    <h2>Data and Information</h2>
+    <h2 id="data-info">Data and Information</h2>
     <p><strong>Data:</strong> Raw facts and figures without any context.</p>
     <p><strong>Information:</strong> Processed data that is meaningful and useful for decision making.</p>
 
-    <h3>Features of Information</h3>
+    <h3 id="features-info">Features of Information</h3>
     <ul>
         <li>Accuracy</li>
         <li>Relevance</li>
@@ -150,11 +188,11 @@
         <li>Understandability</li>
     </ul>
 
-    <h2>Database and Its Purpose</h2>
+    <h2 id="db-purpose">Database and Its Purpose</h2>
     <p>A <strong>Database</strong> is an organized collection of related data stored electronically for easy access, management, and updating.</p>
     <p><strong>Purpose:</strong> To efficiently store, retrieve, and manage data to serve the information needs of users.</p>
 
-    <h2>Terminologies in Database</h2>
+    <h2 id="terminologies">Terminologies in Database</h2>
     <ul>
         <li><strong>Table:</strong> A collection of related data organized in rows and columns.</li>
         <li><strong>Field:</strong> A column in a table representing an attribute.</li>
@@ -164,10 +202,10 @@
         <li><strong>Keys:</strong> Attributes used to uniquely identify records (e.g., Primary Key).</li>
     </ul>
 
-    <h2>Data Dictionary</h2>
+    <h2 id="dictionary">Data Dictionary</h2>
     <p>A data dictionary is a repository that contains definitions and descriptions of data elements used in the database.</p>
 
-    <h2>Database Management System (DBMS)</h2>
+    <h2 id="dbms">Database Management System (DBMS)</h2>
 
     <h3>Introduction</h3>
     <p>A DBMS is software that allows users to create, manage, and manipulate databases efficiently.</p>
@@ -195,7 +233,7 @@
         <li>Requires trained personnel.</li>
     </ul>
 
-    <h2>Types of Database Models</h2>
+    <h2 id="models">Types of Database Models</h2>
 
     <h3>Hierarchical Model</h3>
     <p>Data is organized in a tree-like structure with parent-child relationships.</p>
@@ -209,7 +247,7 @@
     <h3>Entity-Relationship Model</h3>
     <p>A conceptual model representing entities and relationships used for database design.</p>
 
-    <h2>Integrity Constraints and Types</h2>
+    <h2 id="constraints">Integrity Constraints and Types</h2>
 
     <h3>Domain Constraints</h3>
     <p>Specifies the permissible values for a given attribute.</p>
@@ -228,7 +266,7 @@
         <li><strong>Composite Key:</strong> A key made of two or more attributes.</li>
     </ul>
 
-    <h2>Normalization</h2>
+    <h2 id="normalization">Normalization</h2>
 
     <h3>Introduction</h3>
     <p>Process of organizing data to reduce redundancy and improve data integrity.</p>
@@ -253,7 +291,7 @@
         <li>May require more joins, impacting performance.</li>
     </ul>
 
-    <h2>Centralized and Distributed Database</h2>
+    <h2 id="centralized">Centralized and Distributed Database</h2>
 
     <h3>Introduction</h3>
     <p>
@@ -306,7 +344,7 @@
         </tbody>
     </table>
 
-    <h2>Database Security</h2>
+    <h2 id="security">Database Security</h2>
 
     <h3>Introduction</h3>
     <p>Measures and controls to protect the database from unauthorized access and threats.</p>
@@ -336,7 +374,7 @@
         <li>User management</li>
     </ul>
 
-    <h2>Practical Topics: DDL and DML Languages</h2>
+    <h2 id="practical">Practical Topics: DDL and DML Languages</h2>
 
     <h3>SQL Data Types</h3>
     <table>
@@ -369,6 +407,14 @@
     </table>
 
 </div>
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const body = document.body;
+        sidebar.classList.toggle('open');
+        body.classList.toggle('sidebar-active');
+    }
+</script>
 
 </body>
 </html>
