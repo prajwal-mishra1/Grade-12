@@ -1,10 +1,12 @@
 /* External CSS for Grade 12 Syllabus Website */
 
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+html {
     box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 body {
@@ -14,6 +16,7 @@ body {
     background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
     color: #333;
     animation: fadeIn 1.5s ease-in;
+    overflow-x: hidden;
 }
 
 header {
@@ -24,13 +27,25 @@ header {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+nav {
+    background-color: #004d40;
+    display: flex;
+    justify-content: center;
+    padding: 20px 10px;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+}
+
 nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 15px;
+    width: 100%;
+    max-width: 1200px;
 }
 
 nav li {
@@ -38,30 +53,20 @@ nav li {
     padding: 0;
 }
 
-nav {
-    background-color: #004d40;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px 0;
-    gap: 15px;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
 nav a {
-    display: inline-block;
+    display: block;
     background-color: #ffffff;
     color: #00796b;
     text-decoration: none;
     font-weight: bold;
-    padding: 14px 24px;
+    padding: 12px 20px;
     border-radius: 10px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    min-width: 140px;
     text-align: center;
     white-space: nowrap;
+    flex-shrink: 1;
+    min-width: 120px;
 }
 
 nav a:hover {
@@ -164,3 +169,26 @@ footer {
         opacity: 1;
     }
 }
+
+#toggleNavBtn {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px auto;
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#toggleNavBtn:hover {
+    background-color: #e67e00;
+}
+
+.hidden {
+    display: none !important;
+}
+
