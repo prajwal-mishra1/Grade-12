@@ -9,7 +9,9 @@
 <body>
     <header>
         <h1>Grade 12 - NEB Computer Science Syllabus</h1>
-        <nav>
+        <button id="toggleNavBtn">View Chapters</button>
+    
+        <nav id="mainNav" class="hidden">
             <ul>
                 <li><a href="dbms.html">Database Management System</a></li>
                 <li><a href="#networking">Data Communication and Networking</a></li>
@@ -21,6 +23,7 @@
             </ul>
         </nav>
     </header>
+    
 
     <main>
         <section id="home">
@@ -52,5 +55,18 @@
     <footer>
         <p>&copy; 2025 Grade 12 Syllabus | Designed with ❤️</p>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleBtn = document.getElementById("toggleNavBtn");
+            const nav = document.getElementById("mainNav");
+    
+            toggleBtn.addEventListener("click", () => {
+                nav.classList.toggle("hidden");
+                toggleBtn.textContent = nav.classList.contains("hidden") ? "View Chapters" : "Hide Chapters";
+            });
+        });
+    </script>
+    
+    
 </body>
 </html>
