@@ -1,179 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DBMS - Grade 12 NEB Syllabus</title>
-<style>
-    /* Reset */
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DBMS</title>
+  <style>
     * {
-        box-sizing: border-box;
+      box-sizing: border-box;
     }
     body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(to bottom, #e0f2f1, #ffffff);
-        margin: 0;
-        padding: 0;
-        color: #004d40;
-        line-height: 1.6;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #e0f2f1, #ffffff);
+      margin: 0;
+      padding: 0;
+      color: #004d40;
+      line-height: 1.6;
     }
 
-    /* Container for content */
     .container {
-        max-width: 900px;
-        margin: 80px auto 40px;
-        padding: 20px 25px;
-        background: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      max-width: 900px;
+      margin: 80px auto 40px;
+      padding: 20px 25px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    /* Header bar with return button */
     .sidebar-toggle {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    font-size: 26px;
-    background: #00796b;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    z-index: 200;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      font-size: 26px;
+      background: #00796b;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      z-index: 200;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
 
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -260px;
-    width: 240px;
-    height: 100%;
-    background: #004d40;
-    color: white;
-    padding-top: 60px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: left 0.3s ease-in-out;
-    z-index: 150;
-}
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 240px;
+      height: 100%;
+      background: #004d40;
+      color: white;
+      padding-top: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: left 0.3s ease-in-out;
+      z-index: 150;
+      overflow-y: auto;
+    max-height: 100vh;
 
-.sidebar a {
-    color: white;
-    padding: 12px 20px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background 0.2s;
-}
+    }
 
-.sidebar a:hover {
-    background: #00695c;
-}
+    .sidebar a {
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
 
-.sidebar.open {
-    left: 0;
-}
+    .sidebar a:hover {
+      background: #00695c;
+    }
 
-/* Push content when sidebar is open (optional) */
-body.sidebar-active .container {
-    margin-left: 250px;
-    transition: margin 0.3s;
-}
+    .sidebar.open {
+      left: 0;
+    }
 
+    body.sidebar-active .container {
+      margin-left: 250px;
+      transition: margin 0.3s;
+    }
 
     h1 {
-        color: #00796b;
-        text-align: center;
-        margin-bottom: 30px;
-        user-select: none;
+      color: #00796b;
+      text-align: center;
+      margin-bottom: 30px;
+      user-select: none;
     }
 
     h2 {
-        margin-top: 30px;
-        border-bottom: 2px solid #00796b;
-        padding-bottom: 6px;
-        color: #00695c;
+      margin-top: 30px;
+      border-bottom: 2px solid #00796b;
+      padding-bottom: 6px;
+      color: #00695c;
     }
 
     h3 {
-        color: #00796b;
-        margin-top: 25px;
+      color: #00796b;
+      margin-top: 25px;
     }
 
     p, ul {
-        font-size: 16px;
-        margin-top: 8px;
+      font-size: 16px;
+      margin-top: 8px;
     }
 
     ul {
-        margin-left: 20px;
-        list-style-type: disc;
+      margin-left: 20px;
+      list-style-type: disc;
     }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-        margin-bottom: 30px;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.05);
-        border-radius: 6px;
-        overflow: hidden;
-    }
-
-    th, td {
-        padding: 10px 14px;
-        border-bottom: 1px solid #ccc;
-        text-align: left;
-        font-size: 15px;
-        color: #004d40;
-        background: #e0f2f1;
-    }
-
-    th {
-        background: #00796b;
-        color: #e0f2f1;
-        font-weight: 700;
-    }
-
-    /* Responsive text sizes for smaller screens */
-    @media (max-width: 480px) {
-        body {
-            font-size: 14px;
-        }
-        .btn-home {
-            font-size: 14px;
-            padding: 8px 14px;
-        }
-    }
-</style>
+  </style>
 </head>
 <body>
 
-<!-- Sidebar toggle button (hamburger) -->
 <div class="sidebar-toggle" onclick="toggleSidebar()">☰</div>
 
-<!-- Slide-in sidebar -->
 <aside id="sidebar" class="sidebar">
-    <a style="font-family: 'Courier New', Courier, monospace; color: skyblue; font-size: 24px; text-align: center;" href="index.html" class="sidebar-link">← Return to Home</a>
-    <a href="#data-info" class="sidebar-link">Data & Information</a>
-    <a href="#features-info" class="sidebar-link">Features of Info</a>
-    <a href="#db-purpose" class="sidebar-link">Database & Purpose</a>
-    <a href="#terminologies" class="sidebar-link">DB Terminologies</a>
-    <a href="#dictionary" class="sidebar-link">Data Dictionary</a>
-    <a href="#dbms" class="sidebar-link">DBMS</a>
-    <a href="#models" class="sidebar-link">DB Models</a>
-    <a href="#constraints" class="sidebar-link">Constraints</a>
-    <a href="#normalization" class="sidebar-link">Normalization</a>
-    <a href="#centralized" class="sidebar-link">Centralized vs Distributed</a>
-    <a href="#security" class="sidebar-link">Security</a>
-    <a href="#practical" class="sidebar-link">DDL & DML</a>
+  <a style="font-family: 'Courier New', Courier, monospace; color: skyblue; font-size: 24px; text-align: center;" href="index.html" class="sidebar-link">← Return to Home</a>
+  <a href="#data-info" class="sidebar-link">Data & Information</a>
+  <a href="#features-info" class="sidebar-link">Features of Info</a>
+  <a href="#db-purpose" class="sidebar-link">Database & Purpose</a>
+  <a href="#terminologies" class="sidebar-link">DB Terminologies</a>
+  <a href="#dictionary" class="sidebar-link">Data Dictionary</a>
+  <a href="#dbms" class="sidebar-link">DBMS</a>
+  <a href="#models" class="sidebar-link">DB Models</a>
+  <a href="#constraints" class="sidebar-link">Constraints</a>
+  <a href="#normalization" class="sidebar-link">Normalization</a>
+  <a href="#centralized" class="sidebar-link">Centralized vs Distributed</a>
+  <a href="#security" class="sidebar-link">Security</a>
+  <a href="#practical" class="sidebar-link">DDL & DML</a>
+  <a href="#past-questions" class="sidebar-link">Past Questions</a>
 </aside>
 
-
 <div class="container">
-
-    <h1>Database Management System (DBMS)</h1>
+   <h1>Database Management System (DBMS)</h1>
 
     <h2 id="data-info">Data and Information</h2>
     <p><strong>Data:</strong> Raw facts and figures without any context.</p>
@@ -406,14 +365,129 @@ body.sidebar-active .container {
         </tbody>
     </table>
 
+  <!-- NEW SECTION -->
+  <h2 id="past-questions">Past Year Questions (2020–2024 & Model Questions)</h2>
+
+  <h3>1. What is Database and DBMS? List out the advantages and disadvantages of DBMS.</h3>
+  <p><strong>Database:</strong> A structured collection of related data.</p>
+  <p><strong>DBMS:</strong> Software that manages database creation, access, and modification.</p>
+  <ul>
+    <li><strong>Advantages:</strong> Minimizes redundancy, ensures security, supports backup, improves accessibility.</li>
+    <li><strong>Disadvantages:</strong> Costly setup, complex to manage, requires skilled professionals.</li>
+  </ul>
+
+  <h3>2. Differentiate between file processing system and DBMS.</h3>
+  <ul>
+    <li><strong>Redundancy:</strong> High in file system, low in DBMS.</li>
+    <li><strong>Security:</strong> Weak in file system, strong in DBMS.</li>
+    <li><strong>Access:</strong> Manual in file system, query-based in DBMS.</li>
+    <li><strong>Data Sharing:</strong> Difficult in file system, easy in DBMS.</li>
+  </ul>
+
+  <h3>3. Explain the different models of DBMS with advantages and disadvantages.</h3>
+  <ul>
+    <li><strong>Hierarchical Model:</strong> Fast access but rigid and difficult to modify.</li>
+    <li><strong>Network Model:</strong> Flexible relationships but complex design.</li>
+    <li><strong>Relational Model:</strong> Easy to use, highly flexible; slower for huge joins.</li>
+    <li><strong>ER Model:</strong> Simple for planning; not implemented directly.</li>
+  </ul>
+
+  <h3>4. What is a relational database? How is it different from other database models?</h3>
+  <p>A relational database organizes data in tables (relations) using rows and columns. It differs from hierarchical or network models by allowing flexible, SQL-based access and relationships using keys.</p>
+
+  <h3>5. What is data redundancy? How does DBMS help in reducing it?</h3>
+  <p>Data redundancy means storing the same data in multiple places. DBMS reduces redundancy using centralized storage, relationships, and normalization techniques.</p>
+
+  <h3>6. Differentiate between centralized and distributed database systems.</h3>
+  <ul>
+    <li><strong>Centralized:</strong> All data stored in one location; easy to manage but risky if it fails.</li>
+    <li><strong>Distributed:</strong> Data stored at multiple locations; more reliable but harder to maintain.</li>
+  </ul>
+
+  <h3>7. Who is Database Administrator (DBA)? What are their responsibilities?</h3>
+  <p>DBA is responsible for managing the database system. Major duties include:</p>
+  <ul>
+    <li>Ensuring security and access control</li>
+    <li>Performing backups and recovery</li>
+    <li>Tuning performance</li>
+    <li>Managing users and permissions</li>
+  </ul>
+
+  <h3>8. Define normalization. Explain 1NF, 2NF, and 3NF with examples.</h3>
+  <p><strong>Normalization</strong> is the process of organizing data to minimize redundancy and dependency.</p>
+  <ul>
+    <li><strong>1NF:</strong> No repeating groups; atomic values.</li>
+    <li><strong>2NF:</strong> No partial dependency on primary key.</li>
+    <li><strong>3NF:</strong> No transitive dependency; non-key attributes depend only on the primary key.</li>
+  </ul>
+
+  <h3>9. Explain the terms: primary key, foreign key, and candidate key.</h3>
+  <ul>
+    <li><strong>Primary Key:</strong> A primary key is a column or a set of columns in a database table that uniquely identifies each row in that table.
+Example: In a table called Students, the column StudentID can be used as the primary key since each student has a unique ID.</li>
+    <li><strong>Foreign Key:</strong> A foreign key is a column or set of columns in one table that refers to the primary key in another table.
+Example: In a table called Enrollments, the column StudentID might be a foreign key referencing StudentID in the Students table. This means every enrollment must be associated with a valid student.</li>
+    <li><strong>Candidate Key:</strong>A candidate key is any column or set of columns in a table that can uniquely identify a row.
+Example: In a Users table, both Username and Email might be unique for each user. These are candidate keys. You can choose either as the primary key depending on the system’s design preferences.</li>
+  </ul>
+
+  <h3>10. What is SQL? Explain its components and common functions.</h3>
+  <p>SQL (Structured Query Language) is used to manage databases.</p>
+  <ul>
+    <li><strong>DDL:</strong> CREATE, DROP (schema structure)</li>
+    <li><strong>DML:</strong> SELECT, INSERT, UPDATE, DELETE (data manipulation)</li>
+    <li><strong>DCL:</strong> GRANT, REVOKE (access control)</li>
+    <li><strong>TCL:</strong> COMMIT, ROLLBACK (transactions)</li>
+  </ul>
+
+  <h3>11. Write SQL commands to perform given tasks.</h3>
+  
+  <P><strong>A. Create a table named students with the fields: Id, Name, Class, and Marks.</strong> <br>
+        <img style="width: 800px;" src="q1.png">
+        <img style="width: 800px;" src="q1a.png">
+  </P>
+
+  <P><strong>B. Insert records into the students table with appropriate values.</strong> <br>
+        <img style="width: 800px;" src="q2.png">
+        
+  </P>
+
+   <P><strong>C. Display all records from the students table.</strong> <br>
+        <img style="width: 800px;" src="q3.png">
+        
+  </P>
+
+     <P><strong>D. Update the marks of a student whose name is 'Anita' to 90.</strong> <br>
+        <img style="width: 800px;" src="q4.png">
+        <img style="width: 300px;" src="q4a.png">
+  </P>
+
+   <P><strong>E. Delete the record of the student with id = 3.</strong> <br>
+        <img style="width: 800px;" src="q5.png">
+        <img style="width: 800px;" src="q5a.png">
+  </P>
+
+  <h3>12. Define the following terms.</h3>
+  <ul>
+    <li><strong>Data Dictionary:</strong> A repository of database metadata (structure, fields).</li>
+    <li><strong>Primary Key:</strong> Unique identifier for records.</li>
+    <li><strong>Relationship:</strong> Logical link between tables.</li>
+    <li><strong>DML:</strong> Commands to manipulate data (SELECT, INSERT, etc.).</li>
+    <li><strong>SQL:</strong> Language for managing data in RDBMS.</li>
+    <li><strong>Data Integrity:</strong> Ensures correctness and consistency of data.</li>
+    <li><strong>DDL:</strong> Commands to define structure (CREATE, DROP).</li>
+    <li><strong>Data Security:</strong> Protecting data from unauthorized access.</li>
+    <li><strong>Database System:</strong> The entire environment including DBMS, data, users, and hardware.</li>
+  </ul>
 </div>
+
 <script>
-    function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const body = document.body;
-        sidebar.classList.toggle('open');
-        body.classList.toggle('sidebar-active');
-    }
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const body = document.body;
+    sidebar.classList.toggle('open');
+    body.classList.toggle('sidebar-active');
+  }
 </script>
 
 </body>
