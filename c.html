@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unit 2 – C Programming - Grade 12 NEB Syllabus</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #e0f2f1, #ffffff);
+      margin: 0;
+      padding: 0;
+      color: #004d40;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 80px auto 40px;
+      padding: 20px 25px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .sidebar-toggle {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      font-size: 26px;
+      background: #00796b;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      z-index: 200;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -260px;
+      width: 240px;
+      height: 100%;
+      background: #004d40;
+      color: white;
+      padding-top: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: left 0.3s ease-in-out;
+      z-index: 150;
+      overflow-y: auto;
+      max-height: 100vh;
+    }
+
+    .sidebar a {
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.2s;
+    }
+
+    .sidebar a:hover {
+      background: #00695c;
+    }
+
+    .sidebar.open {
+      left: 0;
+    }
+
+    body.sidebar-active .container {
+      margin-left: 250px;
+      transition: margin 0.3s;
+    }
+
+    h1 {
+      color: #00796b;
+      text-align: center;
+      margin-bottom: 30px;
+      user-select: none;
+    }
+
+    h2 {
+      margin-top: 30px;
+      border-bottom: 2px solid #00796b;
+      padding-bottom: 6px;
+      color: #00695c;
+    }
+
+    h3 {
+      color: #00796b;
+      margin-top: 25px;
+    }
+
+    p, ul {
+      font-size: 16px;
+      margin-top: 8px;
+    }
+
+    ul {
+      margin-left: 20px;
+      list-style-type: disc;
+    }
+
+    pre {
+      background: #f0f4f3;
+      border-left: 5px solid #00796b;
+      padding: 12px 15px;
+      overflow-x: auto;
+      border-radius: 4px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    code {
+      background-color: #e0f2f1;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: 'Courier New', Courier, monospace;
+      color: #00796b;
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar-toggle" onclick="toggleSidebar()">☰</div>
+
+<aside id="sidebar" class="sidebar">
+  <a style="font-family: 'Courier New', Courier, monospace; color: skyblue; font-size: 24px; text-align: center;" href="index.html" class="sidebar-link">← Return to Home</a>
+  <a href="#working-with-function" class="sidebar-link">Working with a Function</a>
+  <a href="#categories-of-function" class="sidebar-link">Categories of Function</a>
+  <a href="#storage-classes" class="sidebar-link">Storage Classes</a>
+  <a href="#recursive-function" class="sidebar-link">Recursive Function</a>
+  <a href="#array-to-function" class="sidebar-link">Passing Array to Function</a>
+  <a href="#past-questions" class="sidebar-link">Past Year Questions</a>
+</aside>
+
+<div class="container">
+  <h1>Unit 2 – C Programming</h1>
+
+  <h2 id="working-with-function">1. Working with a Function</h2>
+
+  <h3>a. Define function</h3>
+  <p>
+    A <strong>function</strong> in C programming is a block of reusable code designed to perform a particular task. Functions help to break a program into smaller, manageable, and organized pieces. Instead of writing the same code repeatedly, you can call a function whenever required. This promotes modularity, code reusability, and easy maintenance.
+  </p>
+  <p><strong>Example:</strong></p>
+  <pre>
+void greet() {
+    printf("Hello, welcome to C programming!\n");
+}
+  </pre>
+  <p>The above function <code>greet()</code> prints a welcome message.</p>
+
+  <h3>b. Syntax of functions</h3>
+  <p>The basic syntax of a function in C is:</p>
+  <pre>
+return_type function_name(parameter_list) {
+    // body of the function
+}
+  </pre>
+  <ul>
+    <li><code>return_type</code>: Data type of value the function returns (e.g., <code>int</code>, <code>void</code>).</li>
+    <li><code>function_name</code>: The name of the function, which should be descriptive.</li>
+    <li><code>parameter_list</code>: Inputs to the function (can be empty).</li>
+  </ul>
+  <p>Example function returning an integer:</p>
+  <pre>
+int square(int num) {
+    return num * num;
+}
+  </pre>
+
+  <h3>c. Types of functions</h3>
+  <p>Functions in C can be divided into two main categories:</p>
+  <ul>
+    <li><strong>Library Functions:</strong> Predefined functions provided by C's standard libraries, such as <code>printf()</code>, <code>scanf()</code>, <code>strlen()</code>, etc. These functions are ready to use and save programming effort.</li>
+    <li><strong>User Defined Functions:</strong> Functions written by the programmer to perform specific tasks that are not covered by library functions.</li>
+  </ul>
+  <p><strong>Example of library function:</strong> <code>printf("Hello\n");</code></p>
+  <p><strong>Example of user-defined function:</strong></p>
+  <pre>
+void sayHello() {
+    printf("Hello, User Defined Function!\n");
+}
+  </pre>
+
+  <h3>d. Components of function</h3>
+  <ul>
+    <li><strong>Function prototype:</strong> Declaration of the function before <code>main()</code> specifying its name, return type, and parameters. It tells the compiler what to expect.</li>
+    <pre>
+int add(int, int);
+    </pre>
+    <li><strong>Function call:</strong> The statement where the function is invoked to perform its task.</li>
+    <pre>
+int sum = add(5, 10);
+    </pre>
+    <li><strong>Function definition:</strong> The actual code block where the logic of the function is written.</li>
+    <pre>
+int add(int a, int b) {
+    return a + b;
+}
+    </pre>
+    <li><strong>Return type:</strong> Specifies what type of value the function will return after execution. If no value is returned, use <code>void</code>.</li>
+  </ul>
+
+  <h2 id="categories-of-function">2. Categories of Function with Examples</h2>
+
+  <p>Functions can be classified based on whether they return a value and whether they take arguments (parameters):</p>
+
+  <h3>i. Function with return type but no arguments</h3>
+  <p>Such functions return a value but do not take any input arguments.</p>
+  <pre>
+int getFive() {
+    return 5;
+}
+
+int main() {
+    int val = getFive();
+    printf("Value returned: %d\n", val);
+    return 0;
+}
+  </pre>
+  <p>
+    <img style="width: 800px;" src="c1.png">
+  </code></p>
+
+  <h3>ii. Function with return type with arguments</h3>
+  <p>These functions accept arguments and return a value.</p>
+  <pre>
+int multiply(int x, int y) {
+    return x * y;
+}
+
+int main() {
+    int result = multiply(4, 5);
+    printf("Multiplication result: %d\n", result);
+    return 0;
+}
+  </pre>
+  <p><img style="width: 800px;" src="c2.png"></code></p>
+
+  <h3>iii. Function with no return type and no arguments</h3>
+  <p>Functions that neither return a value nor take parameters. Used when a task does not require input or output.</p>
+  <pre>
+void printHello() {
+    printf("Hello, World!\n");
+}
+
+int main() {
+    printHello();
+    return 0;
+}
+  </pre>
+  <p><img style="width: 800px;" src="c3.png"></code></p>
+
+  <h3>iv. Function with no return type but with arguments</h3>
+  <p>Functions that take input parameters but do not return a value.</p>
+  <pre>
+void printNumber(int n) {
+    printf("Number is: %d\n", n);
+}
+
+int main() {
+    printNumber(10);
+    return 0;
+}
+  </pre>
+  <p><img style="width: 800px;" src="c4.png"></code></p>
+
+  <h2 id="storage-classes">3. Storage Classes</h2>
+
+  <p>Storage classes in C determine the lifetime, scope, and visibility of variables and functions in a program. The four storage classes are:</p>
+
+  <h3>i. Automatic Storage Class</h3>
+  <p>Default storage class for local variables declared inside functions or blocks. They are created when the block is entered and destroyed when it is exited.</p>
+  <pre>
+void func() {
+    int a = 5;  // automatic variable
+    printf("%d\n", a);
+}
+  </pre>
+  <p>Variables declared as automatic are not preserved between function calls.</p>
+
+  <h3>ii. External Storage Class</h3>
+  <p>Variables declared outside all functions have external linkage and are accessible globally. They exist throughout the lifetime of the program.</p>
+  <pre>
+int count = 0;  // external variable
+
+void increment() {
+    count++;
+}
+
+int main() {
+    increment();
+    printf("Count: %d\n", count);
+    return 0;
+}
+  </pre>
+  <p>Output: <code>Count: 1</code></p>
+
+  <h3>iii. Register Storage Class</h3>
+  <p>Suggests to the compiler to store the variable in the CPU register for faster access. It is used for frequently accessed variables. It is local to the block.</p>
+  <pre>
+void fastFunction() {
+    register int counter = 0;
+    for(counter = 0; counter < 5; counter++) {
+        printf("%d\n", counter);
+    }
+}
+  </pre>
+  <p>Note: The compiler may ignore the register request if no registers are available.</p>
+
+  <h3>iv. Static Storage Class</h3>
+  <p>Static variables preserve their value between function calls and are initialized only once. Their scope depends on where they are declared:</p>
+  <ul>
+    <li>If declared inside a function: scope is local, lifetime is the entire program.</li>
+    <li>If declared outside a function: scope is global, but restricted to the file.</li>
+  </ul>
+  <pre>
+void counter() {
+    static int count = 0;  // retains value between calls
+    count++;
+    printf("Count: %d\n", count);
+}
+
+int main() {
+    counter(); // Count: 1
+    counter(); // Count: 2
+    counter(); // Count: 3
+    return 0;
+}
+  </pre>
+
+  <h2 id="recursive-function">4. Recursive Function with Syntax and Example</h2>
+
+  <p>A <strong>recursive function</strong> is a function that calls itself either directly or indirectly to solve a problem by breaking it into smaller subproblems.</p>
+
+  <p><strong>Syntax:</strong></p>
+  <pre>
+return_type function_name(parameters) {
+    if (base_condition) {
+        return base_value;
+    }
+    return function_name(smaller_problem);
+}
+  </pre>
+
+  <p><strong>Example: Factorial using recursion</strong></p>
+  <pre>
+#include &lt;stdio.h&gt;
+
+int factorial(int n) {
+    if (n == 0)  // base condition
+        return 1;
+    else
+        return n * factorial(n - 1);  // recursive call
+}
+
+int main() {
+    int num = 5;
+    printf("Factorial of %d is %d\n", num, factorial(num));
+    return 0;
+}
+  </pre>
+  <p><img style="width: 800px;" src="c5.png"></code></p>
+
+  <h2 id="array-to-function">5. Demonstration of Passing Array to a Function</h2>
+
+  <p>Arrays can be passed to functions by specifying the array name without square brackets. Inside the function, the array is treated as a pointer to its first element.</p>
+
+  <pre>
+#include &lt;stdio.h&gt;
+
+void printArray(int arr[], int size) {
+    printf("Array elements: ");
+    for (int i = 0; i &lt; size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    int numbers[] = {10, 20, 30, 40, 50};
+    printArray(numbers, 5);
+    return 0;
+}
+  </pre>
+  <p><img style="width: 800px;" src="c6.png"></code></p>
+
+  <p><strong>Note:</strong> You can also pass arrays using pointer notation like <code>int *arr</code> instead of <code>int arr[]</code>.</p>
+
+  <h2 id="past-questions">6. Past Year Questions of Functions (2020-2024 and Model Questions)</h2>
+
+  
+
+</div>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const body = document.body;
+    sidebar.classList.toggle('open');
+    body.classList.toggle('sidebar-active');
+  }
+</script>
+
+</body>
+</html>
