@@ -134,13 +134,32 @@
 
 <aside id="sidebar" class="sidebar">
   <a style="font-family: 'Courier New', Courier, monospace; color: skyblue; font-size: 24px; text-align: center;" href="index.html" class="sidebar-link">← Return to Home</a>
+
+  <!-- Functions Section -->
   <a href="#working-with-function" class="sidebar-link">Working with a Function</a>
   <a href="#categories-of-function" class="sidebar-link">Categories of Function</a>
+  <a href="#function-details" class="sidebar-link">Purpose, Components & Return</a>
   <a href="#storage-classes" class="sidebar-link">Storage Classes</a>
   <a href="#recursive-function" class="sidebar-link">Recursive Function</a>
   <a href="#array-to-function" class="sidebar-link">Passing Array to Function</a>
+
+  <!-- Structures and Unions -->
+  <a href="#structure-union" class="sidebar-link">Structures & Unions</a>
+
+  <!-- Pointers -->
+  <a href="#pointers" class="sidebar-link">Pointers</a>
+
+  <!-- File Handling -->
+  <a href="#file-handling" class="sidebar-link">File Handling Functions</a>
+  <a href="#file-steps" class="sidebar-link">Steps to Work with Files</a>
+
+  <!-- Typedef -->
+  <a href="#typedef" class="sidebar-link">Typedef Keyword</a>
+
+  <!-- Past Questions -->
   <a href="#past-questions" class="sidebar-link">Past Year Questions</a>
 </aside>
+
 
 <div class="container">
   <h1>Unit 2 – C Programming</h1>
@@ -397,6 +416,558 @@ int main() {
 
   <p><strong>Note:</strong> You can also pass arrays using pointer notation like <code>int *arr</code> instead of <code>int arr[]</code>.</p>
 
+<h2 id="function-details">Functions in C (Detailed)</h2>
+
+<h3>Purpose of Functions</h3>
+<p>Functions are building blocks of structured programming in C. They allow us to divide a large program into smaller parts that are easier to understand, develop, test, and maintain. Each function performs a specific task.</p>
+
+<h3>Advantages of Using Functions</h3>
+<ul>
+  <li><strong>Modularity:</strong> Programs can be divided into smaller logical units.</li>
+  <li><strong>Reusability:</strong> Once written, a function can be reused in different programs.</li>
+  <li><strong>Debugging Ease:</strong> Errors are easier to locate within a specific function.</li>
+  <li><strong>Collaboration:</strong> Large projects can be shared among multiple programmers, each working on different functions.</li>
+  <li><strong>Maintainability:</strong> Updating one function does not affect the rest of the code if modular design is followed.</li>
+</ul>
+
+<h3>Function Components</h3>
+<ul>
+  <li><strong>Prototype:</strong> Declaration of function before <code>main()</code> to inform the compiler of its type and parameters.</li>
+  <li><strong>Definition:</strong> The block of code where the logic of the function is implemented.</li>
+  <li><strong>Call:</strong> The statement inside <code>main()</code> or another function where the function is invoked.</li>
+  <li><strong>Return Statement:</strong> Used to return a value from function back to the caller. If return type is <code>void</code>, no value is returned.</li>
+</ul>
+
+<pre>
+// Function Prototype
+int add(int, int);
+
+// Function Definition
+int add(int a, int b) {
+    return a + b;   // return statement
+}
+
+// Function Call
+int main() {
+    int sum = add(4, 5);
+    printf("Sum = %d", sum);
+}
+</pre>
+<img src="images/function_components.png" alt="Function Example" style="width:600px;">
+
+<h3>Passing Arguments</h3>
+<ul>
+  <li><strong>Call by Value:</strong> Only a copy of the variable is passed. Changes inside the function do not affect original value.</li>
+  <li><strong>Call by Reference:</strong> The address of the variable is passed. Changes inside the function affect original variable.</li>
+</ul>
+
+<pre>
+// Call by Value Example
+void modify(int x) {
+    x = 20; // modifies only local copy
+}
+
+// Call by Reference Example
+void modify(int *x) {
+    *x = 20; // modifies original variable
+}
+</pre>
+<img src="images/call_value_ref.png" alt="Call by Value vs Call by Reference" style="width:600px;">
+
+<h3>Variable Scope</h3>
+<ul>
+  <li><strong>Local Variable:</strong> Declared inside a block/function, accessible only within it.</li>
+  <li><strong>Global Variable:</strong> Declared outside all functions, accessible throughout the file.</li>
+</ul>
+
+---
+
+<h2 id="structure-union">Structures and Unions</h2>
+
+<h3>Structure: Introduction and Syntax</h3>
+<p>A structure is a user-defined data type that groups different data types together under one name.</p>
+<pre>
+struct Student {
+    int id;
+    char name[30];
+    float marks;
+};
+</pre>
+
+<h3>Size of Structure</h3>
+<p>The size of a structure is not always equal to the sum of its members due to compiler <strong>padding</strong> and alignment.</p>
+
+<h3>Accessing Members</h3>
+<pre>
+struct Student s1;
+s1.id = 1;
+strcpy(s1.name, "Anita");
+s1.marks = 85.5;
+printf("%s has %.2f marks", s1.name, s1.marks);
+</pre>
+
+<h3>Nested Structure</h3>
+<pre>
+struct Date {
+    int day, month, year;
+};
+
+struct Student {
+    char name[30];
+    struct Date dob; // nested structure
+};
+</pre>
+
+<h3>Array of Structures</h3>
+<pre>
+struct Student s[3]; // array of 3 students
+</pre>
+
+<h3>Passing Structure to Function</h3>
+<pre>
+void display(struct Student st) {
+    printf("Name: %s, Marks: %.2f", st.name, st.marks);
+}
+</pre>
+<img src="images/structure_examples.png" alt="Structure Examples" style="width:600px;">
+
+<h3>Union: Introduction and Syntax</h3>
+<p>A union is similar to a structure but uses a single shared memory location for all members. Only one member can hold a value at a time.</p>
+<pre>
+union Data {
+    int i;
+    float f;
+    char str[20];
+};
+</pre>
+
+<h3>Difference between Structure and Union</h3>
+<ul>
+  <li><strong>Structure:</strong> All members get separate memory; multiple members can store values simultaneously.</li>
+  <li><strong>Union:</strong> Members share the same memory space; only one member can be used at a time.</li>
+</ul>
+
+---
+
+<h2 id="pointers">Pointers</h2>
+
+<h3>Introduction</h3>
+<p>Pointers are variables that store memory addresses of other variables.</p>
+<pre>
+int x = 10;
+int *ptr = &x;
+printf("Address: %p, Value: %d", ptr, *ptr);
+</pre>
+
+<img src="pointer1.png" alt="Pointer Example" style="width:850px;">
+
+<h3>Declaration and Initialization</h3>
+<p>Declared with <code>*</code> operator. Initialized with <code>&</code> operator (address-of).</p>
+
+<h3>Pointers with Functions</h3>
+<pre>
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+</pre>
+<img src="pointer2.png" alt="Pointer Example" style="width:850px;">
+<h3>Pointers with Arrays</h3>
+<pre>
+int arr[3] = {1,2,3};
+int *p = arr;
+printf("%d", *(p+1)); // prints 2
+</pre>
+<img src="pointer3.png" alt="Pointer Example" style="width:850px;">
+
+<h3>Advantages</h3>
+<ul>
+  <li>Dynamic memory allocation</li>
+  <li>Efficient array and string handling</li>
+  <li>Supports call by reference</li>
+</ul>
+
+<h3>Disadvantages</h3>
+<ul>
+  <li>Complex to understand</li>
+  <li>Risk of segmentation faults if misused</li>
+  <li>May create memory leaks if not managed properly</li>
+</ul>
+
+---
+
+<h2 id="file-handling">File Handling</h2>
+
+<h3>Concept</h3>
+<p>Files store data permanently on secondary storage. Unlike variables, they retain data after program termination.</p>
+
+<h3>Need</h3>
+<ul>
+  <li>Store large volumes of data permanently</li>
+  <li>Data sharing between programs</li>
+  <li>Backup and retrieval of data</li>
+</ul>
+
+<h3>Types of Files</h3>
+<ul>
+  <li><strong>Sequential Files:</strong> Data accessed in order.</li>
+  <li><strong>Random Files:</strong> Data accessed directly via file pointer.</li>
+</ul>
+
+<h3>Common File Handling Functions</h3>
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%;">
+  <thead style="background:#e0f2f1;">
+    <tr>
+      <th>Function</th>
+      <th>Purpose</th>
+      <th>Syntax</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>fopen()</code></td>
+      <td>Opens a file in the specified mode.</td>
+      <td><code>FILE *fp = fopen("file.txt", "r");</code></td>
+    </tr>
+    <tr>
+      <td><code>fclose()</code></td>
+      <td>Closes an opened file.</td>
+      <td><code>fclose(fp);</code></td>
+    </tr>
+    <tr>
+      <td><code>getc()</code> / <code>putc()</code></td>
+      <td>Read/write a character from/to a file.</td>
+      <td><code>ch = getc(fp); putc('A', fp);</code></td>
+    </tr>
+    <tr>
+      <td><code>fprintf()</code> / <code>fscanf()</code></td>
+      <td>Formatted input/output with files.</td>
+      <td><code>fprintf(fp, "%d", num); fscanf(fp, "%d", &num);</code></td>
+    </tr>
+    <tr>
+      <td><code>fgets()</code> / <code>fputs()</code></td>
+      <td>Read/write a string from/to a file.</td>
+      <td><code>fgets(str, 50, fp); fputs(str, fp);</code></td>
+    </tr>
+    <tr>
+      <td><code>fread()</code> / <code>fwrite()</code></td>
+      <td>Binary input/output from a file.</td>
+      <td><code>fread(&var, sizeof(var), 1, fp);</code></td>
+    </tr>
+    <tr>
+      <td><code>getw()</code> / <code>putw()</code></td>
+      <td>Read/write an integer from/to a file.</td>
+      <td><code>x = getw(fp); putw(10, fp);</code></td>
+    </tr>
+    <tr>
+      <td><code>remove()</code> / <code>rename()</code></td>
+      <td>Delete or rename a file.</td>
+      <td><code>remove("file.txt"); rename("old.txt","new.txt");</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Random Access File Functions</h3>
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%;">
+  <thead style="background:#e0f2f1;">
+    <tr>
+      <th>Function</th>
+      <th>Purpose</th>
+      <th>Syntax</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>fseek()</code></td>
+      <td>Moves file pointer to a given position.</td>
+      <td><code>fseek(fp, offset, SEEK_SET);</code></td>
+    </tr>
+    <tr>
+      <td><code>ftell()</code></td>
+      <td>Returns the current position of file pointer.</td>
+      <td><code>long pos = ftell(fp);</code></td>
+    </tr>
+    <tr>
+      <td><code>rewind()</code></td>
+      <td>Moves file pointer to the beginning.</td>
+      <td><code>rewind(fp);</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>File Opening Modes</h3>
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%;">
+  <thead style="background:#e0f2f1;">
+    <tr>
+      <th>Mode</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>r</code></td>
+      <td>Opens file for reading. File must exist.</td>
+    </tr>
+    <tr>
+      <td><code>w</code></td>
+      <td>Opens file for writing. Creates new file or truncates existing.</td>
+    </tr>
+    <tr>
+      <td><code>a</code></td>
+      <td>Opens file for appending data at end.</td>
+    </tr>
+    <tr>
+      <td><code>r+</code></td>
+      <td>Opens file for both reading and writing.</td>
+    </tr>
+    <tr>
+      <td><code>w+</code></td>
+      <td>Opens file for both reading and writing. Creates/truncates file.</td>
+    </tr>
+    <tr>
+      <td><code>a+</code></td>
+      <td>Opens file for reading and appending.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="file-steps">Steps to Work with Files in C</h2>
+
+<p>
+  Working with files in C typically follows a clear sequence of steps: declare a file pointer, open the file in the required mode, perform read/write/append operations, and finally close the file. Below is a detailed, step-by-step explanation with code examples and best-practices. Image placeholders are included where diagrams or screenshots might help.
+</p>
+
+<h3>1. Define a File Pointer</h3>
+<p>
+  Use the standard <code>FILE</code> type (defined in <code>&lt;stdio.h&gt;</code>) to declare a file pointer. Initialize it to <code>NULL</code> to be safe.
+</p>
+<pre>
+FILE *fp = NULL;   &lt;!-- file pointer declaration --&gt;
+</pre>
+<img src="images/file_pointer.png" alt="File pointer placeholder" style="width:600px;">
+
+<h3>2. Open the File with Required Mode</h3>
+<p>
+  Use <code>fopen()</code> to open a file. Always check the return value for <code>NULL</code> to ensure the file opened successfully.
+</p>
+<pre>
+fp = fopen("data.txt", "r");   // open for reading
+if (fp == NULL) {
+    perror("Error opening file");
+    return 1;
+}
+</pre>
+
+<p><strong>Common modes:</strong> <code>r</code>, <code>w</code>, <code>a</code>, <code>r+</code>, <code>w+</code>, <code>a+</code> (append) and on some systems add <code>b</code> for binary (e.g., <code>"rb"</code>).</p>
+
+<h3>3. Write Data to Files</h3>
+<p>
+  For text files, use <code>fprintf()</code>, <code>fputs()</code>, or <code>putc()</code>. For binary files, use <code>fwrite()</code>.
+</p>
+
+<pre>
+// Text write using fprintf
+FILE *fpw = fopen("students.txt", "w");
+if (fpw) {
+    fprintf(fpw, "%d %s %.2f\n", 1, "Anita", 85.5);
+    fputs("This is a text line\n", fpw);
+    putc('A', fpw); putc('\n', fpw);
+    fclose(fpw);
+}
+</pre>
+
+<pre>
+// Binary write using fwrite (example with struct)
+struct Student { int id; char name[30]; float marks; };
+struct Student s = {1, "Anita", 85.5};
+FILE *fb = fopen("students.bin", "wb");
+if (fb) {
+    fwrite(&s, sizeof(s), 1, fb);
+    fclose(fb);
+}
+</pre>
+
+<h3>4. Read Data from Files</h3>
+<p>
+  For text files use <code>fgets()</code>, <code>fscanf()</code>, or <code>getc()</code>. For binary files use <code>fread()</code>. Check return values to detect success or EOF.
+</p>
+
+<pre>
+// Using fgets to read lines (safe for text)
+char buffer[256];
+FILE *fpr = fopen("students.txt", "r");
+if (fpr) {
+    while (fgets(buffer, sizeof(buffer), fpr) != NULL) {
+        printf("Line: %s", buffer);
+    }
+    fclose(fpr);
+}
+
+// Using fscanf to read formatted records
+int id; char name[30]; float marks;
+fpr = fopen("students.txt", "r");
+if (fpr) {
+    while (fscanf(fpr, "%d %29s %f", &id, name, &marks) == 3) {
+        printf("%d %s %.2f\n", id, name, marks);
+    }
+    fclose(fpr);
+}
+
+// Binary read with fread
+struct Student s2;
+FILE *fb = fopen("students.bin", "rb");
+if (fb) {
+    if (fread(&s2, sizeof(s2), 1, fb) == 1) {
+        printf("%d %s %.2f\n", s2.id, s2.name, s2.marks);
+    }
+    fclose(fb);
+}
+</pre>
+
+<img src="images/file_reading.png" alt="File reading placeholder" style="width:600px;">
+
+<h3>5. Append Data to Files</h3>
+<p>
+  Use mode <code>"a"</code> (or <code>"a+"</code>) to open a file for appending. Writes always occur at end of file. If you need to both read and append, use <code>"a+"</code> and reposition the pointer before reading.
+</p>
+
+<pre>
+FILE *fpa = fopen("students.txt", "a");  // open for append
+if (fpa) {
+    fprintf(fpa, "%d %s %.2f\n", 4, "Rohit", 72.0);
+    fclose(fpa);
+}
+</pre>
+
+<h3>6. Close the File</h3>
+<p>
+  Use <code>fclose()</code> to flush buffers and release resources. Always check <code>fclose</code>'s return (0 on success, EOF on error) if needed.
+</p>
+<pre>
+if (fclose(fp) == EOF) {
+    perror("Error closing file");
+}
+</pre>
+
+<h3>7. End of File (EOF)</h3>
+<p>
+  <code>EOF</code> is an integer macro (usually -1) used by functions like <code>getc()</code> to indicate end-of-file. Use reading functions' return values (e.g., <code>fgets()</code> returns <code>NULL</code>, <code>fscanf()</code> returns number of items read) or detect EOF with <code>feof()</code> after a read attempt.
+</p>
+
+<pre>
+// Using getc() and EOF
+int ch;
+FILE *fpr2 = fopen("students.txt", "r");
+if (fpr2) {
+    while ((ch = getc(fpr2)) != EOF) {
+        putchar(ch);
+    }
+    if (feof(fpr2)) {
+        printf("\nReached end of file\n");
+    }
+    fclose(fpr2);
+}
+
+// Important: feof() only becomes true after attempting to read past EOF
+</pre>
+
+<h3>8. Example: Full Program (Write → Read → Append → Read)</h3>
+<pre>
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main(void) {
+    FILE *fp;
+    /* 1. Write initial data */
+    fp = fopen("students.txt", "w");
+    if (!fp) { perror("open for write"); return 1; }
+    fprintf(fp, "%d %s %.2f\n", 1, "Anita", 85.5);
+    fprintf(fp, "%d %s %.2f\n", 2, "Bimal", 78.0);
+    fclose(fp);
+
+    /* 2. Read and display */
+    fp = fopen("students.txt", "r");
+    if (!fp) { perror("open for read"); return 1; }
+    char line[128];
+    printf("Contents after write:\n");
+    while (fgets(line, sizeof(line), fp) != NULL) {
+        fputs(line, stdout);
+    }
+    fclose(fp);
+
+    /* 3. Append a new record */
+    fp = fopen("students.txt", "a");
+    if (!fp) { perror("open for append"); return 1; }
+    fprintf(fp, "%d %s %.2f\n", 3, "Chitra", 91.0);
+    fclose(fp);
+
+    /* 4. Read again */
+    fp = fopen("students.txt", "r");
+    if (!fp) { perror("open for read2"); return 1; }
+    printf("\\nContents after append:\\n");
+    while (fgets(line, sizeof(line), fp) != NULL) {
+        fputs(line, stdout);
+    }
+    fclose(fp);
+    return 0;
+}
+</pre>
+
+<h3>9. Binary Example + Simple Random Access (seek to Nth record)</h3>
+<pre>
+/* Use this for a binary file of fixed-size records (struct Student) */
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+struct Student { int id; char name[30]; float marks; };
+
+int main(void) {
+    struct Student s = {1, "Anita", 85.5}, temp;
+    FILE *fb = fopen("students.bin", "wb");
+    if (!fb) { perror("open bin"); return 1; }
+    fwrite(&s, sizeof(s), 1, fb);
+    fclose(fb);
+
+    /* Read back and seek */
+    fb = fopen("students.bin", "rb");
+    if (!fb) { perror("open bin read"); return 1; }
+    // Move to beginning (optional)
+    rewind(fb);
+    // Seek to record 0 (first record): offset = 0 * sizeof(struct Student)
+    if (fseek(fb, 0 * sizeof(struct Student), SEEK_SET) == 0) {
+        if (fread(&temp, sizeof(temp), 1, fb) == 1) {
+            printf("%d %s %.2f\n", temp.id, temp.name, temp.marks);
+        }
+    }
+    fclose(fb);
+    return 0;
+}
+</pre>
+
+<h3>10. Best Practices & Notes</h3>
+<ul>
+  <li>Always check <code>fopen()</code> result before using the file pointer.</li>
+  <li>Prefer <code>fgets()</code> over <code>gets()</code> (never use <code>gets()</code> - it is unsafe).</li>
+  <li>Use <code>fclose()</code> to flush buffers and release resources.</li>
+  <li>Use binary modes (<code>rb/wb/ab</code>) for fixed-size records and portability when storing raw structs.</li>
+  <li>Remember that <code>feof()</code> should usually be checked after a read attempt, not before.</li>
+  <li>Use <code>fflush()</code> if you need to force buffered output to disk before <code>fclose()</code> (e.g., long-running program that must persist partial results).</li>
+</ul>
+
+<img src="images/file_workflow.png" alt="File workflow placeholder" style="width:600px;">
+
+
+<h2 id="typedef">Typedef Keyword</h2>
+<p>The <code>typedef</code> keyword creates an alias for existing data types, making code more readable.</p>
+<pre>
+typedef unsigned int uint;
+uint age = 20;
+</pre>
+<img src="images/typedef.png" alt="Typedef Example" style="width:600px;">
+
+
+  
   <h2 id="past-questions">6. Past Year Questions of Functions (2020-2024 and Model Questions)</h2>
 
   
